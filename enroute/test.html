@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html> 
+<head> 
+
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+  <title>Google Maps Multiple Markers</title> 
+  <script src="http://maps.google.com/maps/api/js?key=AIzaSyAR-LLjiAhyPhZAnTVNs-GXEcBP3uehwXM
+&sensor=false"></script>
+</head> 
+<body>
+  <div id="map" style="width: 800px; height: 600px;">
+    
+  </div> 
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+ <style>
+    width: ;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+
+  <script>
+    // Define your locations: HTML content for the info window, latitude, longitude
+    var locations = [
+      ['<h4>Womens Hostel Trivandrum,  0471-2495600</h4>', 8.4302617, 76.9868383],
+		['<h4>She Toilet a</h4>',9.5572878,76.5701942],
+      ['<h4>Ladies amenity centre, Thrissur</h4>', 10.5581936,76.1902213],
+      ['<h4>Kuthiathode,public amenity centre</h4>', 9.7964533,76.3137875],
+		['<h4>She Toilet c</h4>', 10.8004439,76.0786365],
+      ['<h4>Kerala State Women’s Development Corporation </h4>',8.5161003,76.9580038],
+      ['<h4>Vanitha Mithra Kendram</h4>', 8.5480743,76.9045703],
+		['<h4>KSWDC Working Women’s Hostel</h4>', 9.9717452,76.2944364],
+		['<h4>KSWDC Working Women’s Hostel </h4>',11.0851365,76.1183912],
+        ['<h4>KSWDC Working Women’s Hostel</h4>', 11.8157372,75.9920383],
+		['<h4>KSWDC working women’ hostel</h4>', 11.864869,75.3622913],
+        ['<h4>She Stay Working Women’s Hostel</h4>', 11.2806959,75.7782003],
+		['<h4>She Toilet d</h4>', 10.9181297,75.8865421],
+		
+		
+        
+
+		
+
+    ];
+
+    // Setup the different icons and shadows
+    var iconURLPrefix = 'http://maps.google.com/mapfiles/ms/icons/';
+
+    var icons = [
+      iconURLPrefix + 'red-dot.png',
+      iconURLPrefix + 'green-dot.png',
+      iconURLPrefix + 'blue-dot.png',
+      iconURLPrefix + 'orange-dot.png',
+      iconURLPrefix + 'purple-dot.png',
+      iconURLPrefix + 'pink-dot.png',      
+      
+    ]
+    var iconsLength = icons.length;
+
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 10,
+      center: new google.maps.LatLng(-37.92, 151.25),
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      mapTypeControl: false,
+      streetViewControl: false,
+      panControl: false,
+      zoomControlOptions: {
+         position: google.maps.ControlPosition.LEFT_BOTTOM
+      }
+    });
+
+    var infowindow = new google.maps.InfoWindow({
+      maxWidth: 160
+    });
+
+    var markers = new Array();
+
+    var iconCounter = 0;
+
+    // Add the markers and infowindows to the map
+    for (var i = 0; i < locations.length; i++) {  
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        icon: icons[iconCounter]
+      });
+
+      markers.push(marker);
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        }
+      })(marker, i));
+
+      iconCounter++;
+      // We only have a limited number of possible icon colors, so we may have to restart the counter
+      if(iconCounter >= iconsLength) {
+        iconCounter = 0;
+      }
+    }
+
+    function autoCenter() {
+      //  Create a new viewpoint bound
+      var bounds = new google.maps.LatLngBounds();
+      //  Go through each...
+      for (var i = 0; i < markers.length; i++) {  
+                bounds.extend(markers[i].position);
+      }
+      //  Fit these bounds to the map
+      map.fitBounds(bounds);
+    }
+    autoCenter();
+
+
+  </script>
+<br> 
+
+
+
+</body>
+</html>

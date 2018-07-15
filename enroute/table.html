@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+<style>
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: ;
+}
+
+#customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+}
+</style>
+<body>
+<table id="customers">
+  <tr>
+    <th>Mark Color</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td>Blue</td>
+    <td>Ladies' Amenity Centre </td>
+  
+  </tr>
+  <tr>
+    <td>Red</td>
+    <td>KSWDC Working Women’s Hostel</td>
+    
+  </tr>
+  <tr>
+    <td>Orange</td>
+    <td>She Toilet</td>
+  
+  </tr>
+  <tr>
+    <td>Purple</td>
+    <td>Feeding Rooms</td>
+   
+  </tr>
+ 
+</table>
+<br>
+<script type="text/javascript">
+    function showPosition(){
+        navigator.geolocation.getCurrentPosition(showMap);
+    }
+    
+    function showMap(position){
+        // Get location data
+        var latlong = position.coords.latitude + "," + position.coords.longitude;
+        
+        // Set Google map source url
+        var mapLink = "https://maps.googleapis.com/maps/api/staticmap?center="+latlong+"&zoom=16&size=400x300&output=embed";
+        
+        // Create and insert Google map
+        document.getElementById("embedMap").innerHTML = "<img alt='Map Holder' src='"+ mapLink +"'>";
+    }
+</script>
+</head>
+<body>
+    <button type="button" onclick="showPosition();">Show My Position on Google Map</button>
+    <div id="embedMap">
+        <!--Google map will be embedded here-->
+    </div>
+                          
+</body>
+</html>
